@@ -1,0 +1,131 @@
+{
+  "theme": "dark",
+  "brand_identity": {
+    "concept": "Cinematic, theatrical, luxury. Moulin Rouge meets fine dining.",
+    "keywords": ["Red", "Gold", "Velvet", "Theatre", "Luxury", "Midnight"]
+  },
+  "colors": {
+    "primary": "#8B0000",
+    "secondary": "#1A0000",
+    "accent": "#C9A84C",
+    "text_primary": "#FFFFFF",
+    "text_muted": "rgba(255, 255, 255, 0.55)",
+    "overlay": "rgba(0, 0, 0, 0.4)",
+    "border_gold": "rgba(201, 168, 76, 0.3)",
+    "card_bg": "rgba(139, 0, 0, 0.15)",
+    "input_bg": "rgba(0, 0, 0, 0.2)"
+  },
+  "typography": {
+    "headings": {
+      "family": "'Cormorant Garamond', serif",
+      "weights": ["400", "500", "600", "700"],
+      "usage": "H1-H6, large stylistic quotes, marquee text. Use tracking-tight or tracking-tighter for large sizes."
+    },
+    "body": {
+      "family": "'Montserrat', sans-serif",
+      "weights": ["300", "400", "500", "600"],
+      "usage": "Paragraphs, navigation links, buttons, small labels. Use tracking-widest for uppercase labels."
+    },
+    "arabic": {
+      "family": "system-ui, -apple-system, sans-serif",
+      "rules": "When RTL is active, use native system fonts, increase line height (leading-loose), ensure all flex/grid layouts reverse automatically via Tailwind rtl: prefix or dir='rtl' attribute."
+    }
+  },
+  "visual_enhancers": {
+    "cursor": "Custom gold cursor: A small dot (bg-[#C9A84C]) that tracks the mouse. On hover over clickable elements, it expands in size and uses mix-blend-difference.",
+    "textures": "Subtle noise overlay globally (mix-blend-overlay opacity 5%) to kill digital flatness and enhance the cinematic feel.",
+    "particles": "Floating gold and red particles in the Hero section (using framer-motion absolute divs with varying animation durations and scales)."
+  },
+  "motion": {
+    "global": "Lenis smooth scrolling is mandatory for momentum. Framer motion for all reveals.",
+    "hero_reveal": "Curtain Opening: Two `bg-[#1A0000]` overlays split from the center to left/right on load (duration 1.5s, ease: [0.76, 0, 0.24, 1]). Afterwards, the LÀ·BA title reveals line-by-line masked (staggered y: 100% to 0).",
+    "scroll_reveals": "Sections fade in and translate up (y: 40) using whileInView with viewport={{ once: true, margin: '-100px' }}."
+  },
+  "layouts": {
+    "container": "Max-width typically 1440px with generous p-6 md:p-12 lg:p-24 padding.",
+    "menu_split": "lg:grid lg:grid-cols-12 gap-12. Left col-span-5 has `sticky top-32` image container. Right col-span-7 has the scrollable menu list.",
+    "gallery_masonry": "columns-1 sm:columns-2 lg:columns-3 gap-6. Images use break-inside-avoid."
+  },
+  "components": {
+    "buttons": "Pill-shaped or sharp rectangular. Primary: `bg-[#C9A84C] text-[#1A0000] font-medium hover:bg-white transition-colors`. Secondary: `border border-[#C9A84C] text-[#C9A84C] hover:bg-[#C9A84C] hover:text-[#1A0000]`.",
+    "cards": "Experience cards: `bg-[#1A0000] border border-[#8B0000] hover:border-[#C9A84C] transition-all p-8 rounded-none md:rounded-lg`.",
+    "inputs": "Minimalist: `bg-transparent border-b border-[#C9A84C]/50 text-white placeholder-white/50 focus:border-[#C9A84C] focus:outline-none py-3`."
+  },
+  "sections": [
+    {
+      "name": "Header & Nav",
+      "details": "Sticky top-0 z-40. `backdrop-blur-md bg-[#1A0000]/80`. Solid gold bottom border 1px. Logo center, Links left/right. RTL toggle. Floating WhatsApp button fixed bottom-right z-50."
+    },
+    {
+      "name": "Hero",
+      "details": "Min-h-screen relative. Background: `/images/hero-dining.jpg` with `bg-black/40` overlay. Title LÀ·BA in center. Subtitle 'Art of Dining'. Curtain split reveal on load. Two CTAs (Menu, Reserve). Floating particles."
+    },
+    {
+      "name": "Marquee",
+      "details": "Auto-scrolling. Text: 'LÀ·BA RIYADH — ART OF DINING — 4.3★ RATING — OPEN UNTIL 3AM — '. Large italic serif `text-6xl md:text-8xl` text-[#C9A84C] opacity-30."
+    },
+    {
+      "name": "Story & Stats",
+      "details": "Bento grid or asymmetrical layout. 3 stats (4.3★, 800+ reviews, Daily 12PM–3AM) over deep red background. Image: `/images/interior-main.jpg`."
+    },
+    {
+      "name": "Menu",
+      "details": "8 Tabs (Coffee, Sliders & Burgers, Desserts, Drinks, Seafood, Pizza, Restaurant, Breakfast). Split layout. The sticky image changes smoothly when a new tab is clicked. Hovering over menu items shifts the image scale slightly."
+    },
+    {
+      "name": "Experience",
+      "details": "6 cards (Live Entertainment, Shisha Lounge, Signature Mocktails, Iconic Architecture, 4.3 Stars, Open Until 3AM). Each card has a subtle gold icon/accent and muted text description."
+    },
+    {
+      "name": "About Highlight",
+      "details": "Full-width image of `/images/stage.jpg` with a parallax effect. Gold offset frame layout (border box displaced from the image). Text overlay 'Where every meal is a performance'."
+    },
+    {
+      "name": "Gallery",
+      "details": "Masonry grid using `/images/arch-neon.jpg`, `/images/exterior-night.jpg`, and other food images. Implement a simple lightbox on click."
+    },
+    {
+      "name": "Reservation",
+      "details": "Form collecting First/Last Name, Phone, Guests, Date, Time, Requests. Submission generates a WhatsApp `wa.me/966582266333` link with pre-filled text and logically saves to a DB (simulated or API route)."
+    },
+    {
+      "name": "Footer",
+      "details": "Simple, elegant. Address: Prince Abdulaziz St, As Sulimaniyah, Riyadh. Contact info, social links (@la.ba.ksa). Text 'Designed by MYFRIX' at the bottom."
+    }
+  ],
+  "image_urls": {
+    "local_assets": {
+      "hero": "/images/hero-dining.jpg",
+      "exterior": "/images/exterior-night.jpg",
+      "interior": "/images/interior-main.jpg",
+      "stage": "/images/stage.jpg",
+      "arch": "/images/arch-neon.jpg"
+    },
+    "menu_categories": {
+      "seafood": "https://images.unsplash.com/photo-1761668439955-8e6acfcb05c3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwxfHxnb3VybWV0JTIwc2VhZm9vZCUyMGRhcmslMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTc4NTM4MDgxNXww&ixlib=rb-4.1.0&q=85",
+      "sliders_burgers": "https://images.unsplash.com/photo-1678110707493-8d05425137ac?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwyfHxsdXh1cnklMjBnb3VybWV0JTIwYnVyZ2VyJTIwZGFyayUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzg1NTk4OTQwfDA&ixlib=rb-4.1.0&q=85",
+      "pizza": "https://images.unsplash.com/photo-1579751626657-72bc17010498?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzJ8MHwxfHNlYXJjaHwxfHx3b29kJTIwZmlyZWQlMjBwaXp6YSUyMGRhcmslMjBsaWdodGluZ3xlbnwwfHx8fDE3ODU1OTg5Mzl8MA&ixlib=rb-4.1.0&q=85",
+      "desserts": "https://images.unsplash.com/photo-1637944220604-c5f28faac604?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwyfHxhcnRpc2FuYWwlMjBjb2ZmZWUlMjBkZXNzZXJ0JTIwY29ja3RhaWwlMjBkYXJrJTIwYmFja2dyb3VuZHxlbnwwfHx8fDE3ODU1OTg5MzJ8MA&ixlib=rb-4.1.0&q=85",
+      "coffee": "https://images.unsplash.com/photo-1478192013110-1203b3616b75?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxhcnRpc2FuYWwlMjBjb2ZmZWUlMjBkZXNzZXJ0JTIwY29ja3RhaWwlMjBkYXJrJTIwYmFja2dyb3VuZHxlbnwwfHx8fDE3ODU1OTg5MzJ8MA&ixlib=rb-4.1.0&q=85",
+      "drinks": "https://images.unsplash.com/photo-1656423371679-297f0d3ef4ee?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwzfHxhcnRpc2FuYWwlMjBjb2ZmZWUlMjBkZXNzZXJ0JTIwY29ja3RhaWwlMjBkYXJrJTIwYmFja2dyb3VuZHxlbnwwfHx8fDE3ODU1OTg5MzJ8MA&ixlib=rb-4.1.0&q=85",
+      "breakfast_restaurant": "/images/interior-main.jpg"
+    }
+  },
+  "instructions_to_main_agent": {
+    "setup": "Install `framer-motion`, `@studio-freight/lenis`, `lucide-react`, `react-fast-marquee`. Import Google Fonts Cormorant Garamond & Montserrat. Write code in .jsx/.js files instead of .tsx since this is a JS project.",
+    "routing": "Ensure this is a single page application with smooth scrolling anchor links.",
+    "rtl": "Implement a simple toggle in the header that switches the HTML `dir` attribute between `ltr` and `rtl`. Ensure layout flex directions flip gracefully.",
+    "css": "Configure Tailwind config with the custom colors: `primary: '#8B0000'`, `secondary: '#1A0000'`, `accent: '#C9A84C'`. Set the body background to `secondary` (#1A0000).",
+    "whatsapp_integration": "The reservation form submit should construct a URL like `https://wa.me/966582266333?text=New%20Reservation...` and open it in a new tab."
+  },
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Do not use transparent backgrounds for headers or dropdowns to preserve text contrast.",
+    "Add `data-testid` to all interactive elements for testing.",
+    "Ensure the hero curtain animation runs immediately upon component mount.",
+    "Do not center-align body text; reserve centering for headings and hero moments.",
+    "Never use generic default fonts; stick strictly to Cormorant Garamond and Montserrat.",
+    "Apply generous padding (p-12, p-24) to establish a luxury, uncrowded feel.",
+    "Include hover transitions on all interactive elements (links, buttons, form fields).",
+    "Maintain the strict Red (#8B0000 / #1A0000) and Gold (#C9A84C) color palette. Do not inject other brand colors."
+  ]
+}

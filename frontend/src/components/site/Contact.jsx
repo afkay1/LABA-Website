@@ -2,11 +2,36 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import axios from "axios";
-import { MapPin, Clock, Phone, MessageCircle, QrCode, Instagram } from "lucide-react";
+import { MapPin, Clock, Phone, MessageCircle, QrCode, Instagram, CalendarIcon } from "lucide-react";
+import { format, parseISO } from "date-fns";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Calendar } from "../ui/calendar";
 import { useLang } from "../../context/LanguageContext";
 import { T, CONTACT } from "../../data/content";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+
+// Build 30-min time slots from 12:00 PM through 3:00 AM (venue hours).
+const TIME_SLOTS = (() => {
+  const slots = [];
+  const push = (h, m) => {
+    const hh = String(h).padStart(2, "0");
+    const mm = String(m).padStart(2, "0");
+    const period = h >= 12 && h < 24 ? "PM" : "AM";
+    const h12 = ((h % 12) === 0 ? 12 : h % 12);
+    slots.push({ value: `${hh}:${mm}`, label: `${h12}:${mm} ${period}` });
+  };
+  for (let h = 12; h < 24; h++) { push(h, 0); push(h, 30); }
+  for (let h = 0; h <= 3; h++) { push(h, 0); if (h < 3) push(h, 30); }
+  return slots;
+})();
 
 const EMPTY = {
   first_name: "",
@@ -24,6 +49,7 @@ export default function Contact() {
   const [loading, setLoading] = useState(false);
 
   const update = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
+  const setField = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
   const buildWhatsApp = (data) => {
     const lines = [
@@ -190,38 +216,57 @@ export default function Contact() {
                 />
               </Field>
               <Field label={t(T.contact.guests)} required>
-                <select
-                  value={form.guests}
-                  onChange={update("guests")}
-                  data-testid="input-guests"
-                  className="laba-input bg-laba-secondary"
-                >
-                  {Array.from({ length: 20 }).map((_, i) => (
-                    <option key={i} value={i + 1} className="bg-laba-secondary">
-                      {i + 1}
-                    </option>
-                  ))}
-                </select>
+                <Select value={form.guests} onValueChange={(v) => setField("guests", v)}>
+                  <SelectTrigger data-testid="input-guests" className="laba-trigger">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-laba-secondary border-laba-accent/40 text-white">
+                    {Array.from({ length: 20 }).map((_, i) => (
+                      <SelectItem key={i} value={String(i + 1)} className="focus:bg-laba-primary focus:text-white">
+                        {i + 1}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </Field>
               <Field label={t(T.contact.date)} required>
-                <input
-                  type="date"
-                  value={form.date}
-                  onChange={update("date")}
-                  data-testid="input-date"
-                  className="laba-input"
-                  style={{ colorScheme: "dark" }}
-                />
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <button
+                      type="button"
+                      data-testid="input-date"
+                      className="laba-trigger flex w-full items-center justify-between text-start"
+                    >
+                      <span className={form.date ? "text-white" : "text-white/40"}>
+                        {form.date ? format(parseISO(form.date), "dd MMM yyyy") : "—"}
+                      </span>
+                      <CalendarIcon size={15} className="text-laba-accent" />
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0 bg-laba-secondary border-laba-accent/40" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={form.date ? parseISO(form.date) : undefined}
+                      onSelect={(d) => d && setField("date", format(d, "yyyy-MM-dd"))}
+                      disabled={(d) => d < new Date(new Date().setHours(0, 0, 0, 0))}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
               </Field>
               <Field label={t(T.contact.time)} required>
-                <input
-                  type="time"
-                  value={form.time}
-                  onChange={update("time")}
-                  data-testid="input-time"
-                  className="laba-input"
-                  style={{ colorScheme: "dark" }}
-                />
+                <Select value={form.time} onValueChange={(v) => setField("time", v)}>
+                  <SelectTrigger data-testid="input-time" className="laba-trigger">
+                    <SelectValue placeholder="—" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-laba-secondary border-laba-accent/40 text-white max-h-64">
+                    {TIME_SLOTS.map((s) => (
+                      <SelectItem key={s.value} value={s.value} className="focus:bg-laba-primary focus:text-white">
+                        {s.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </Field>
             </div>
 
@@ -267,6 +312,20 @@ export default function Contact() {
         }
         .laba-input:focus { border-color: #C9A84C; }
         .laba-input::placeholder { color: rgba(255,255,255,0.4); }
+        .laba-trigger {
+          width: 100%;
+          background: transparent;
+          border: none;
+          border-bottom: 1px solid rgba(201,168,76,0.45);
+          border-radius: 0;
+          color: #fff;
+          padding: 10px 2px;
+          height: auto;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 0.9rem;
+          box-shadow: none;
+        }
+        .laba-trigger:focus { outline: none; border-color: #C9A84C; box-shadow: none; }
       `}</style>
     </section>
   );

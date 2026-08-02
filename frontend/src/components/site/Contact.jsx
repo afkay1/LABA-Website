@@ -383,13 +383,14 @@ export default function Contact() {
                 {t(T.contact.confirmBody)}
               </p>
               <div className="mt-7 flex flex-col gap-3">
-                
+                <a
                   href={confirm.waUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   data-testid="confirm-whatsapp"
                   className="laba-hoverable rounded-full bg-[#25D366] py-3.5 font-body text-xs uppercase tracking-[0.25em] text-white transition-transform hover:scale-[1.02]"
-                >
+                <a
+                  >
                   {t(T.contact.confirmWhatsapp)}
                 </a>
                 <button

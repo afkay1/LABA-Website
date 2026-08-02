@@ -70,8 +70,6 @@ export default function Contact() {
                   <div className="font-body text-sm text-white/85">
                     {t(T.contact.address)}
                   </div>
-                </div>
-              </div>
 
               <div className="flex items-start gap-4">
                 <span className="mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-laba-accent/40 text-laba-accent">
@@ -284,7 +282,6 @@ export default function Contact() {
 
         </div>
       </div>
-    <a
     </section>
   );
 }

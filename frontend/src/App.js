@@ -12,6 +12,7 @@ import Story from "@/components/site/Story";
 import Menu from "@/components/site/Menu";
 import Experience from "@/components/site/Experience";
 import Reviews from "@/components/site/Reviews";
+import GroupDining from "@/components/site/GroupDining";
 import About from "@/components/site/About";
 import Gallery from "@/components/site/Gallery";
 import Contact from "@/components/site/Contact";
@@ -81,6 +82,7 @@ function App() {
           <div className="section-divider" />
           <Experience />
           <Reviews />
+          <GroupDining />
           <About />
           <div className="section-divider" />
           <Gallery />

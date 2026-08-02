@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import axios from "axios";
-import { MapPin, Clock, Phone, MessageCircle, QrCode, Instagram, CalendarIcon } from "lucide-react";
+import { MapPin, Clock, Phone, MessageCircle, QrCode, Instagram, CalendarIcon, X, Check } from "lucide-react";
 import { format, parseISO } from "date-fns";
 import {
   Select,
@@ -47,6 +47,7 @@ export default function Contact() {
   const { t, lang } = useLang();
   const [form, setForm] = useState(EMPTY);
   const [loading, setLoading] = useState(false);
+  const [confirm, setConfirm] = useState(null);
 
   const update = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
   const setField = (k, v) => setForm((f) => ({ ...f, [k]: v }));
@@ -71,20 +72,19 @@ export default function Contact() {
       return;
     }
     setLoading(true);
-    const waUrl = buildWhatsApp(form);
-    // open immediately to avoid popup blocking
-    const win = window.open(waUrl, "_blank");
+    const submitted = { ...form };
+    const waUrl = buildWhatsApp(submitted);
     try {
       await axios.post(`${API}/reservations`, {
-        ...form,
-        guests: parseInt(form.guests, 10) || 1,
+        ...submitted,
+        guests: parseInt(submitted.guests, 10) || 1,
       });
       toast.success(t(T.contact.success));
+      setConfirm({ ...submitted, waUrl });
       setForm(EMPTY);
     } catch (err) {
       toast.error(t(T.contact.error));
     } finally {
-      if (!win) window.location.href = waUrl;
       setLoading(false);
     }
   };
@@ -111,11 +111,17 @@ export default function Contact() {
               {t(T.contact.eyebrow)}
             </p>
             <h2
-              className="font-display text-4xl md:text-6xl text-white mb-10"
+              className="font-display text-4xl md:text-6xl text-white mb-4"
               data-testid="contact-heading"
             >
               {t(T.contact.heading)}
             </h2>
+            <div className="inline-flex items-center gap-2 mb-9 rounded-full border border-laba-accent/40 px-4 py-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-laba-accent" />
+              <span className="font-body text-[11px] uppercase tracking-[0.25em] text-laba-accent" data-testid="price-note">
+                {t(T.contact.priceNote)}
+              </span>
+            </div>
 
             <div className="space-y-6">
               {infoItems.map((it, i) => {
@@ -327,6 +333,80 @@ export default function Contact() {
         }
         .laba-trigger:focus { outline: none; border-color: #C9A84C; box-shadow: none; }
       `}</style>
+
+      {/* Instant booking confirmation */}
+      <AnimatePresence>
+        {confirm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[160] flex items-center justify-center bg-laba-ink/90 backdrop-blur-sm p-4"
+            data-testid="reservation-confirm"
+            onClick={() => setConfirm(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 10 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-md border border-laba-accent/40 bg-laba-secondary p-8 md:p-10 text-center shadow-[0_0_60px_-15px_rgba(201,168,76,0.5)]"
+            >
+              <button
+                onClick={() => setConfirm(null)}
+                data-testid="confirm-close"
+                className="absolute top-4 end-4 text-white/60 hover:text-laba-accent transition-colors"
+                aria-label="Close"
+              >
+                <X size={22} />
+              </button>
+              <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-laba-accent text-laba-accent">
+                <Check size={30} strokeWidth={1.5} />
+              </div>
+              <h3 className="font-display text-3xl md:text-4xl text-white">
+                {t(T.contact.confirmTitle)}
+              </h3>
+              <div className="gold-line my-6" />
+              <div className="space-y-2 text-start font-body text-sm text-white/80">
+                <div className="flex justify-between gap-4">
+                  <span className="text-laba-accent/80">{t(T.contact.labelName)}</span>
+                  <span>{confirm.first_name} {confirm.last_name}</span>
+                </div>
+                <div className="flex justify-between gap-4">
+                  <span className="text-laba-accent/80">{t(T.contact.labelGuests)}</span>
+                  <span>{confirm.guests}</span>
+                </div>
+                <div className="flex justify-between gap-4">
+                  <span className="text-laba-accent/80">{t(T.contact.labelWhen)}</span>
+                  <span>{confirm.date} · {confirm.time}</span>
+                </div>
+              </div>
+              <p className="mt-6 font-body text-sm text-white/60 leading-relaxed">
+                {t(T.contact.confirmBody)}
+              </p>
+              <div className="mt-7 flex flex-col gap-3">
+                <a
+                  href={confirm.waUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid="confirm-whatsapp"
+                  className="laba-hoverable rounded-full bg-[#25D366] py-3.5 font-body text-xs uppercase tracking-[0.25em] text-white transition-transform hover:scale-[1.02]"
+                >
+                  {t(T.contact.confirmWhatsapp)}
+                </a>
+                <button
+                  onClick={() => setConfirm(null)}
+                  data-testid="confirm-done"
+                  className="laba-hoverable rounded-full border border-laba-accent/50 py-3.5 font-body text-xs uppercase tracking-[0.25em] text-laba-accent transition-colors hover:bg-laba-accent hover:text-laba-secondary"
+                >
+                  {t(T.contact.confirmClose)}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

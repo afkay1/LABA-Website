@@ -3,7 +3,6 @@ import { useRef } from "react";
 import { ArrowDown } from "lucide-react";
 import { useLang } from "../../context/LanguageContext";
 import { T, IMAGES } from "../../data/content";
-import Particles from "./Particles";
 
 // Curtain reveal timing (kept short so above-the-fold content reveals fast).
 const CURTAIN_DELAY = 0.55;
@@ -43,19 +42,17 @@ export default function Hero({ lenis }) {
           alt="LÀ·BA interior"
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-laba-secondary/55" />
-        <div className="absolute inset-0 bg-gradient-to-t from-laba-secondary via-laba-secondary/20 to-laba-secondary/70" />
-        {/* red vignette */}
+        {/* Lighter overlay so the restaurant photo stays clearly visible */}
+        <div className="absolute inset-0 bg-black/35" />
+        {/* Warm red/gold gradient at the BOTTOM only */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-x-0 bottom-0 h-2/3"
           style={{
             background:
-              "radial-gradient(circle at 50% 40%, rgba(139,0,0,0.15), rgba(26,0,0,0.75) 85%)",
+              "linear-gradient(to top, rgba(26,0,0,0.92) 0%, rgba(139,0,0,0.28) 45%, rgba(201,168,76,0.06) 70%, transparent 100%)",
           }}
         />
       </motion.div>
-
-      <Particles />
 
       {/* Content */}
       <motion.div
@@ -76,20 +73,22 @@ export default function Hero({ lenis }) {
         <h1 className="font-display leading-[0.85] text-white" data-testid="hero-title">
           <span className="block overflow-hidden">
             <motion.span
-              className="block text-[24vw] md:text-[16vw] lg:text-[13rem]"
+              className="block text-[26vw] md:text-[17vw] lg:text-[15rem]"
+              style={{ textShadow: "0 6px 40px rgba(0,0,0,0.55)" }}
               initial={{ y: "110%" }}
               animate={{ y: 0 }}
               transition={{ delay: CURTAIN_DELAY, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
             >
               L<span className="text-laba-accent">À</span>
-              <span className="text-laba-accent">·</span>BA
+              <span className="gold-dot mx-1 md:mx-2">·</span>BA
             </motion.span>
           </span>
         </h1>
 
         <span className="block overflow-hidden mt-2">
           <motion.span
-            className="block font-display italic text-2xl md:text-4xl text-white/90"
+            className="block font-display italic text-3xl md:text-5xl tracking-wide text-white/95"
+            style={{ textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}
             initial={{ y: "110%" }}
             animate={{ y: 0 }}
             transition={{ delay: CURTAIN_DELAY + 0.35, duration: 1, ease: [0.22, 1, 0.36, 1] }}

@@ -75,10 +75,14 @@ function App() {
           <Hero lenis={lenis} />
           <MarqueeStrip />
           <Story />
+          <div className="section-divider" />
           <Menu />
+          <div className="section-divider" />
           <Experience />
           <About />
+          <div className="section-divider" />
           <Gallery />
+          <div className="section-divider" />
           <Contact />
         </main>
         <Footer lenis={lenis} />

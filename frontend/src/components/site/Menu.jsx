@@ -18,7 +18,7 @@ export default function Menu() {
     >
       <div className="mx-auto max-w-[1440px] px-5 md:px-10">
         {/* Heading */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <p className="font-body text-xs uppercase tracking-[0.4em] text-laba-accent mb-4">
             {t(T.menu.eyebrow)}
           </p>
@@ -42,7 +42,7 @@ export default function Menu() {
               data-testid={`menu-tab-${c.key}`}
               className={`font-body text-[11px] md:text-xs uppercase tracking-[0.15em] px-4 md:px-5 py-2.5 rounded-full border transition-all duration-300 ${
                 i === active
-                  ? "bg-laba-accent text-laba-secondary border-laba-accent"
+                  ? "bg-laba-accent text-laba-secondary border-laba-accent font-semibold scale-105 shadow-[0_0_22px_-4px_rgba(201,168,76,0.85)]"
                   : "border-laba-accent/30 text-white/70 hover:border-laba-accent hover:text-laba-accent"
               }`}
             >
@@ -55,7 +55,7 @@ export default function Menu() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
           {/* Left: image + canvas */}
           <div className="lg:col-span-5 lg:sticky lg:top-28">
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm border border-laba-accent/20 bg-laba-secondary">
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm border-2 border-laba-accent/50 bg-laba-secondary shadow-[0_0_40px_-12px_rgba(201,168,76,0.5)]">
               <AnimatePresence mode="wait">
                 <motion.img
                   key={cat.key}
@@ -107,7 +107,7 @@ export default function Menu() {
                 </p>
                 <div className="gold-line my-8" />
 
-                <ul className="space-y-5">
+                <ul className="space-y-6">
                   {cat.items.map((item, idx) => (
                     <motion.li
                       key={idx}
@@ -116,11 +116,11 @@ export default function Menu() {
                       transition={{ delay: idx * 0.05, duration: 0.4 }}
                       className="group flex items-baseline gap-4"
                     >
-                      <span className="font-body text-sm md:text-base text-white/90 group-hover:text-laba-accent transition-colors">
+                      <span className="font-body text-base md:text-lg text-white/90 group-hover:text-laba-accent transition-colors">
                         {t(item)}
                       </span>
                       <span className="flex-1 border-b border-dotted border-laba-accent/30 translate-y-[-4px]" />
-                      <span className="font-display text-lg md:text-xl text-laba-accent whitespace-nowrap">
+                      <span className="font-display text-xl md:text-2xl text-laba-accent whitespace-nowrap">
                         {currency(lang, item.price)}
                       </span>
                     </motion.li>

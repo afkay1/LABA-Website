@@ -62,7 +62,7 @@ export default function Navbar({ lenis }) {
         <button
           onClick={() => (lenis ? lenis.scrollTo(0) : window.scrollTo({ top: 0, behavior: "smooth" }))}
           data-testid="nav-logo"
-          className="font-display text-3xl md:text-4xl tracking-tight text-white leading-none"
+          className="font-display text-3xl md:text-4xl tracking-tight text-white leading-none logo-glow"
         >
           L<span className="text-laba-accent">À</span>
           <span className="text-laba-accent">·</span>BA
@@ -86,7 +86,7 @@ export default function Navbar({ lenis }) {
             className="flex items-center gap-2 border border-laba-accent/50 rounded-full px-4 py-1.5 text-xs font-body tracking-widest text-laba-accent hover:bg-laba-accent hover:text-laba-secondary transition-colors"
           >
             <Globe size={13} />
-            {lang === "en" ? "العربية" : "EN"}
+            {lang === "en" ? "العربية" : "English"}
           </button>
         </div>
 
@@ -98,7 +98,7 @@ export default function Navbar({ lenis }) {
             className="flex items-center gap-1.5 border border-laba-accent/50 rounded-full px-3 py-1.5 text-[11px] font-body tracking-widest text-laba-accent"
           >
             <Globe size={12} />
-            {lang === "en" ? "ع" : "EN"}
+            {lang === "en" ? "العربية" : "English"}
           </button>
           <button
             onClick={() => setOpen((o) => !o)}

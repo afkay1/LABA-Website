@@ -21,11 +21,11 @@ export default function Footer({ lenis }) {
 
   return (
     <footer
-      className="relative border-t border-laba-accent/25 bg-laba-ink py-16"
+      className="relative border-t border-laba-accent/25 bg-laba-ink py-20"
       data-testid="footer"
     >
       <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
           {/* Brand */}
           <div>
             <div className="font-display text-4xl text-white mb-4">
@@ -79,7 +79,7 @@ export default function Footer({ lenis }) {
           </div>
         </div>
 
-        <div className="gold-line my-10" />
+        <div className="gold-line my-12" />
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="font-body text-xs text-white/45">

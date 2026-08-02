@@ -9,7 +9,7 @@ export const IMAGES = {
 
 export const MENU_IMAGES = {
   coffee:
-    "https://images.unsplash.com/photo-1478192013110-1203b3616b75?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+    "/images/coffee-latte.jpg",
   sliders:
     "https://images.unsplash.com/photo-1678110707493-8d05425137ac?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
   desserts:
@@ -30,7 +30,7 @@ export const CONTACT = {
   whatsapp: "966582266333",
   instagram: "https://instagram.com/la.ba.ksa",
   instagramHandle: "@la.ba.ksa",
-  maps: "https://www.google.com/maps/search/?api=1&query=LA.BA+Prince+Abdulaziz+St+As+Sulimaniyah+Riyadh",
+  maps: "https://maps.google.com/?q=LA.BA+Restaurant+Riyadh",
   menuLink: "https://laba.yallaqrcodes.com/branch/1/",
 };
 
@@ -300,8 +300,16 @@ export const T = {
     requests: { en: "Special Requests", ar: "طلبات خاصة" },
     submit: { en: "Reserve via WhatsApp", ar: "احجز عبر واتساب" },
     note: { en: "Or call us: 058 226 6333", ar: "أو اتصل بنا: 058 226 6333" },
+    priceNote: { en: "SAR 200+ per person", ar: "أكثر من 200 ر.س للشخص" },
     success: { en: "Reservation received — opening WhatsApp to confirm.", ar: "تم استلام الحجز — جاري فتح واتساب للتأكيد." },
     error: { en: "Something went wrong. Please call us instead.", ar: "حدث خطأ ما. يرجى الاتصال بنا." },
+    confirmTitle: { en: "Reservation Received", ar: "تم استلام الحجز" },
+    confirmBody: { en: "Thank you — we've received your request. We'll confirm your table on WhatsApp shortly.", ar: "شكراً لك — لقد استلمنا طلبك. سنؤكد طاولتك عبر واتساب قريباً." },
+    confirmWhatsapp: { en: "Confirm on WhatsApp", ar: "التأكيد عبر واتساب" },
+    confirmClose: { en: "Done", ar: "تم" },
+    labelName: { en: "Name", ar: "الاسم" },
+    labelGuests: { en: "Guests", ar: "الضيوف" },
+    labelWhen: { en: "When", ar: "الموعد" },
   },
   footer: {
     desc: {

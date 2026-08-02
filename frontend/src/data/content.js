@@ -17,7 +17,7 @@ export const MENU_IMAGES = {
   drinks:
     "https://images.unsplash.com/photo-1656423371679-297f0d3ef4ee?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
   seafood:
-    "https://images.unsplash.com/photo-1761668439955-8e6acfcb05c3?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+    "./images/seafood-paella.jpg",
   pizza:
     "https://images.unsplash.com/photo-1579751626657-72bc17010498?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
   restaurant: "/images/interior-main.jpg",

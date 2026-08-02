@@ -1,15 +1,40 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { ArrowDown } from "lucide-react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { ArrowDown, ArrowUp } from "lucide-react";
 import { useLang } from "../../context/LanguageContext";
 import { T, IMAGES } from "../../data/content";
 
-// Curtain reveal timing (kept short so above-the-fold content reveals fast).
 const CURTAIN_DELAY = 0.55;
+
+// Hero carousel images
+const CAROUSEL_IMAGES = [
+  { src: IMAGES.hero, alt: "LÀ·BA Dining Room" },
+  { src: IMAGES.stage, alt: "LÀ·BA Stage" },
+  { src: IMAGES.arch, alt: "LÀ·BA Arch" },
+  { src: IMAGES.interior, alt: "LÀ·BA Interior" },
+];
 
 export default function Hero({ lenis }) {
   const { t } = useLang();
   const ref = useRef(null);
+  const [current, setCurrent] = useState(0);
+  const [showTop, setShowTop] = useState(false);
+
+  // Auto advance carousel every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((c) => (c + 1) % CAROUSEL_IMAGES.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Show back to top button after scrolling 400px
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 400);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -27,148 +52,189 @@ export default function Hero({ lenis }) {
     const el = document.getElementById("reserve");
     if (el && lenis) lenis.scrollTo(el, { offset: -20 });
   };
+  const scrollToTop = () => {
+    if (lenis) lenis.scrollTo(0);
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
-    <section
-      id="hero"
-      ref={ref}
-      className="relative h-screen w-full overflow-hidden bg-laba-secondary"
-      data-testid="hero-section"
-    >
-      {/* Background image with parallax */}
-      <motion.div className="absolute inset-0" style={{ y: imgY, scale: imgScale }}>
-        <img
-          src={IMAGES.hero}
-          alt="LÀ·BA interior"
-          className="h-full w-full object-cover"
-        />
-        {/* Lighter overlay so the restaurant photo stays clearly visible */}
-        <div className="absolute inset-0 bg-black/35" />
-        {/* Warm red/gold gradient at the BOTTOM only */}
-        <div
-          className="absolute inset-x-0 bottom-0 h-2/3"
-          style={{
-            background:
-              "linear-gradient(to top, rgba(26,0,0,0.92) 0%, rgba(139,0,0,0.28) 45%, rgba(201,168,76,0.06) 70%, transparent 100%)",
-          }}
-        />
-      </motion.div>
-
-      {/* Content */}
-      <motion.div
-        style={{ y: contentY, opacity: contentOpacity }}
-        className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center"
+    <>
+      <section
+        id="hero"
+        ref={ref}
+        className="relative h-screen w-full overflow-hidden bg-laba-secondary"
+        data-testid="hero-section"
       >
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: CURTAIN_DELAY + 0.5, duration: 0.8 }}
-          className="mb-6 font-body text-[10px] md:text-xs uppercase tracking-[0.4em] text-laba-accent"
-          data-testid="hero-eyebrow"
-        >
-          {t(T.hero.eyebrow)}
-        </motion.p>
+        {/* Carousel background */}
+        <motion.div className="absolute inset-0" style={{ y: imgY, scale: imgScale }}>
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={current}
+              src={CAROUSEL_IMAGES[current].src}
+              alt={CAROUSEL_IMAGES[current].alt}
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.02 }}
+              transition={{ duration: 1.2, ease: "easeInOut" }}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </AnimatePresence>
+          <div className="absolute inset-0 bg-black/35" />
+          <div
+            className="absolute inset-x-0 bottom-0 h-2/3"
+            style={{
+              background:
+                "linear-gradient(to top, rgba(26,0,0,0.92) 0%, rgba(139,0,0,0.28) 45%, rgba(201,168,76,0.06) 70%, transparent 100%)",
+            }}
+          />
+        </motion.div>
 
-        {/* Masked line-by-line title */}
-        <h1 className="font-display leading-[0.85] text-white" data-testid="hero-title">
-          <span className="block overflow-hidden">
+        {/* Carousel dots */}
+        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+          {CAROUSEL_IMAGES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === current ? "w-6 bg-laba-accent" : "w-1.5 bg-white/30"
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Content */}
+        <motion.div
+          style={{ y: contentY, opacity: contentOpacity }}
+          className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center"
+        >
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: CURTAIN_DELAY + 0.5, duration: 0.8 }}
+            className="mb-6 font-body text-[10px] md:text-xs uppercase tracking-[0.4em] text-laba-accent"
+            data-testid="hero-eyebrow"
+          >
+            {t(T.hero.eyebrow)}
+          </motion.p>
+
+          <h1 className="font-display leading-[0.85] text-white" data-testid="hero-title">
+            <span className="block overflow-hidden">
+              <motion.span
+                className="block text-[26vw] md:text-[17vw] lg:text-[15rem]"
+                style={{ textShadow: "0 6px 40px rgba(0,0,0,0.55)" }}
+                initial={{ y: "110%" }}
+                animate={{ y: 0 }}
+                transition={{ delay: CURTAIN_DELAY, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+              >
+                L<span className="text-laba-accent">À</span>
+                <span className="gold-dot mx-1 md:mx-2">·</span>BA
+              </motion.span>
+            </span>
+          </h1>
+
+          <span className="block overflow-hidden mt-2">
             <motion.span
-              className="block text-[26vw] md:text-[17vw] lg:text-[15rem]"
-              style={{ textShadow: "0 6px 40px rgba(0,0,0,0.55)" }}
+              className="block font-display italic text-3xl md:text-5xl tracking-wide text-white/95"
+              style={{ textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}
               initial={{ y: "110%" }}
               animate={{ y: 0 }}
-              transition={{ delay: CURTAIN_DELAY, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: CURTAIN_DELAY + 0.35, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              data-testid="hero-tagline"
             >
-              L<span className="text-laba-accent">À</span>
-              <span className="gold-dot mx-1 md:mx-2">·</span>BA
+              {t(T.hero.tagline)}
             </motion.span>
           </span>
-        </h1>
 
-        <span className="block overflow-hidden mt-2">
-          <motion.span
-            className="block font-display italic text-3xl md:text-5xl tracking-wide text-white/95"
-            style={{ textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}
-            initial={{ y: "110%" }}
-            animate={{ y: 0 }}
-            transition={{ delay: CURTAIN_DELAY + 0.35, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            data-testid="hero-tagline"
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: CURTAIN_DELAY + 0.9, duration: 0.8 }}
+            className="mt-10 flex flex-col sm:flex-row items-center gap-4"
           >
-            {t(T.hero.tagline)}
-          </motion.span>
-        </span>
-
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: CURTAIN_DELAY + 0.9, duration: 0.8 }}
-          className="mt-10 flex flex-col sm:flex-row items-center gap-4"
-        >
-          <button
-            onClick={scrollToMenu}
-            data-testid="hero-explore-menu"
-            className="laba-hoverable rounded-full bg-laba-primary px-9 py-3.5 font-body text-xs uppercase tracking-[0.25em] text-white transition-all duration-300 hover:bg-laba-accent hover:text-laba-secondary"
-          >
-            {t(T.hero.exploreMenu)}
-          </button>
-          <button
-            onClick={scrollToReserve}
-            data-testid="hero-reserve"
-            className="laba-hoverable rounded-full border border-laba-accent px-9 py-3.5 font-body text-xs uppercase tracking-[0.25em] text-laba-accent transition-all duration-300 hover:bg-laba-accent hover:text-laba-secondary"
-          >
-            {t(T.hero.reserve)}
-          </button>
+            <button
+              onClick={scrollToMenu}
+              data-testid="hero-explore-menu"
+              className="laba-hoverable rounded-full bg-laba-primary px-9 py-3.5 font-body text-xs uppercase tracking-[0.25em] text-white transition-all duration-300 hover:bg-laba-accent hover:text-laba-secondary"
+            >
+              {t(T.hero.exploreMenu)}
+            </button>
+            <button
+              onClick={scrollToReserve}
+              data-testid="hero-reserve"
+              className="laba-hoverable rounded-full border border-laba-accent px-9 py-3.5 font-body text-xs uppercase tracking-[0.25em] text-laba-accent transition-all duration-300 hover:bg-laba-accent hover:text-laba-secondary"
+            >
+              {t(T.hero.reserve)}
+            </button>
+          </motion.div>
         </motion.div>
-      </motion.div>
 
-      {/* Scroll indicator */}
-      <motion.button
-        onClick={scrollToMenu}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: CURTAIN_DELAY + 1.2, duration: 1 }}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 flex flex-col items-center gap-2 text-laba-accent"
-        data-testid="scroll-indicator"
-      >
-        <span className="font-body text-[10px] uppercase tracking-[0.3em] text-white/60">
-          {t(T.hero.scroll)}
-        </span>
-        <motion.span
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+        {/* Scroll indicator */}
+        <motion.button
+          onClick={scrollToMenu}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: CURTAIN_DELAY + 1.2, duration: 1 }}
+          className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 flex flex-col items-center gap-2 text-laba-accent"
+          data-testid="scroll-indicator"
         >
-          <ArrowDown size={18} />
-        </motion.span>
-      </motion.button>
+          <span className="font-body text-[10px] uppercase tracking-[0.3em] text-white/60">
+            {t(T.hero.scroll)}
+          </span>
+          <motion.span
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ArrowDown size={18} />
+          </motion.span>
+        </motion.button>
 
-      {/* Curtain overlay panels */}
-      <motion.div
-        className="absolute inset-y-0 left-0 z-40 w-1/2 origin-left"
-        style={{
-          background:
-            "linear-gradient(90deg, #4d0000 0%, #8B0000 55%, #6a0000 100%)",
-          boxShadow: "inset -30px 0 60px rgba(0,0,0,0.6)",
-        }}
-        initial={{ x: 0 }}
-        animate={{ x: "-101%" }}
-        transition={{ delay: 0.4, duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
-      >
-        <CurtainPleats side="left" />
-      </motion.div>
-      <motion.div
-        className="absolute inset-y-0 right-0 z-40 w-1/2 origin-right"
-        style={{
-          background:
-            "linear-gradient(270deg, #4d0000 0%, #8B0000 55%, #6a0000 100%)",
-          boxShadow: "inset 30px 0 60px rgba(0,0,0,0.6)",
-        }}
-        initial={{ x: 0 }}
-        animate={{ x: "101%" }}
-        transition={{ delay: 0.4, duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
-      >
-        <CurtainPleats side="right" />
-      </motion.div>
-    </section>
+        {/* Curtain overlay panels */}
+        <motion.div
+          className="absolute inset-y-0 left-0 z-40 w-1/2 origin-left"
+          style={{
+            background:
+              "linear-gradient(90deg, #4d0000 0%, #8B0000 55%, #6a0000 100%)",
+            boxShadow: "inset -30px 0 60px rgba(0,0,0,0.6)",
+          }}
+          initial={{ x: 0 }}
+          animate={{ x: "-101%" }}
+          transition={{ delay: 0.4, duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
+        >
+          <CurtainPleats side="left" />
+        </motion.div>
+        <motion.div
+          className="absolute inset-y-0 right-0 z-40 w-1/2 origin-right"
+          style={{
+            background:
+              "linear-gradient(270deg, #4d0000 0%, #8B0000 55%, #6a0000 100%)",
+            boxShadow: "inset 30px 0 60px rgba(0,0,0,0.6)",
+          }}
+          initial={{ x: 0 }}
+          animate={{ x: "101%" }}
+          transition={{ delay: 0.4, duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
+        >
+          <CurtainPleats side="right" />
+        </motion.div>
+      </section>
+
+      {/* Back to Top Button */}
+      <AnimatePresence>
+        {showTop && (
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+            onClick={scrollToTop}
+            data-testid="back-to-top"
+            className="fixed bottom-24 right-6 z-[94] flex h-11 w-11 items-center justify-center rounded-full border border-laba-accent/60 bg-laba-secondary/90 text-laba-accent backdrop-blur-sm transition-all duration-300 hover:bg-laba-accent hover:text-laba-secondary"
+            aria-label="Back to top"
+          >
+            <ArrowUp size={18} />
+          </motion.button>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 

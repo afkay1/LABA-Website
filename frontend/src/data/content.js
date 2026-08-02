@@ -301,7 +301,7 @@ export const T = {
     submit: { en: "Reserve via WhatsApp", ar: "احجز عبر واتساب" },
     note: { en: "Or call us: 058 226 6333", ar: "أو اتصل بنا: 058 226 6333" },
     priceNote: { en: "SAR 200+ per person", ar: "أكثر من 200 ر.س للشخص" },
-    success: { en: "Reservation received — opening WhatsApp to confirm.", ar: "تم استلام الحجز — جاري فتح واتساب للتأكيد." },
+    success: { en: "Reservation received — see your confirmation below.", ar: "تم استلام الحجز — تفقّد التأكيد أدناه." },
     error: { en: "Something went wrong. Please call us instead.", ar: "حدث خطأ ما. يرجى الاتصال بنا." },
     confirmTitle: { en: "Reservation Received", ar: "تم استلام الحجز" },
     confirmBody: { en: "Thank you — we've received your request. We'll confirm your table on WhatsApp shortly.", ar: "شكراً لك — لقد استلمنا طلبك. سنؤكد طاولتك عبر واتساب قريباً." },

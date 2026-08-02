@@ -1,55 +1,90 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-import { HOME } from "@/constants/testIds";
+import Lenis from "lenis";
+import { Toaster } from "sonner";
+import { LanguageProvider } from "@/context/LanguageContext";
+import Cursor from "@/components/site/Cursor";
+import Loader from "@/components/site/Loader";
+import Navbar from "@/components/site/Navbar";
+import Hero from "@/components/site/Hero";
+import MarqueeStrip from "@/components/site/MarqueeStrip";
+import Story from "@/components/site/Story";
+import Menu from "@/components/site/Menu";
+import Experience from "@/components/site/Experience";
+import About from "@/components/site/About";
+import Gallery from "@/components/site/Gallery";
+import Contact from "@/components/site/Contact";
+import Footer from "@/components/site/Footer";
+import WhatsAppButton from "@/components/site/WhatsAppButton";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
+function App() {
+  const [lenis, setLenis] = useState(null);
+  const [loaderDone, setLoaderDone] = useState(false);
 
   useEffect(() => {
-    helloWorldApi();
+    const l = new Lenis({
+      duration: 1.15,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+    setLenis(l);
+    if (typeof window !== "undefined") window.__lenis = l;
+    let raf;
+    const loop = (time) => {
+      l.raf(time);
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => {
+      cancelAnimationFrame(raf);
+      l.destroy();
+    };
+  }, []);
+
+  useEffect(() => {
+    // Event-driven dismissal so it works even when the clock is throttled
+    // (headless/hidden tabs). Real users still see the loader during initial
+    // paint + the Hero curtain reveal that follows.
+    const finish = () => setLoaderDone(true);
+    if (document.readyState === "complete") {
+      finish();
+      return;
+    }
+    window.addEventListener("load", finish, { once: true });
+    return () => window.removeEventListener("load", finish);
   }, []);
 
   return (
-    <div>
-      <header className="App-header">
-        <a
-          data-testid={HOME.emergentLink}
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
-
-function App() {
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <LanguageProvider>
+      <div className="App laba-noise bg-laba-secondary min-h-screen">
+        <Cursor />
+        {!loaderDone && <Loader />}
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            style: {
+              background: "#1A0000",
+              border: "1px solid rgba(201,168,76,0.4)",
+              color: "#fff",
+              fontFamily: "'Montserrat', sans-serif",
+            },
+          }}
+        />
+        <Navbar lenis={lenis} />
+        <main>
+          <Hero lenis={lenis} />
+          <MarqueeStrip />
+          <Story />
+          <Menu />
+          <Experience />
+          <About />
+          <Gallery />
+          <Contact />
+        </main>
+        <Footer lenis={lenis} />
+        <WhatsAppButton />
+      </div>
+    </LanguageProvider>
   );
 }
 

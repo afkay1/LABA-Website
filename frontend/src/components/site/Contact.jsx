@@ -284,6 +284,7 @@ export default function Contact() {
 
         </div>
       </div>
+    <a
     </section>
   );
 }

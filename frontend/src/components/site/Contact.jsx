@@ -18,7 +18,6 @@ import { T, CONTACT } from "../../data/content";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
-// Build 30-min time slots from 12:00 PM through 3:00 AM (venue hours).
 const TIME_SLOTS = (() => {
   const slots = [];
   const push = (h, m) => {
@@ -142,7 +141,7 @@ export default function Contact() {
                   </div>
                 );
                 return it.href ? (
-                  <a
+                  
                     key={i}
                     href={it.href}
                     target="_blank"
@@ -162,7 +161,7 @@ export default function Contact() {
 
             {/* Socials */}
             <div className="mt-10 flex items-center gap-4">
-              <a
+              
                 href={CONTACT.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -171,7 +170,7 @@ export default function Contact() {
               >
                 <Instagram size={15} /> {CONTACT.instagramHandle}
               </a>
-              <a
+              
                 href={CONTACT.maps}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -180,6 +179,20 @@ export default function Contact() {
               >
                 <MapPin size={15} /> Google Maps
               </a>
+            </div>
+
+            {/* Google Maps Embed */}
+            <div className="mt-10 overflow-hidden border border-laba-accent/25 rounded-sm">
+              <iframe
+                title="LA.BA Location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.5!2d46.6753!3d24.6877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03b5b5b5b5b5%3A0x1234567890abcdef!2sLA.BA%20Restaurant!5e0!3m2!1sen!2ssa!4v1234567890"
+                width="100%"
+                height="220"
+                style={{ border: 0, display: "block", filter: "invert(90%) hue-rotate(180deg)" }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </div>
 
@@ -334,7 +347,6 @@ export default function Contact() {
         .laba-trigger:focus { outline: none; border-color: #C9A84C; box-shadow: none; }
       `}</style>
 
-      {/* Instant booking confirmation */}
       <AnimatePresence>
         {confirm && (
           <motion.div
@@ -386,7 +398,7 @@ export default function Contact() {
                 {t(T.contact.confirmBody)}
               </p>
               <div className="mt-7 flex flex-col gap-3">
-                <a
+                
                   href={confirm.waUrl}
                   target="_blank"
                   rel="noopener noreferrer"

@@ -122,7 +122,7 @@ function App() {
               <div className="font-display text-2xl md:text-3xl text-white text-center">
                 Daily <span className="text-laba-accent">12:00 PM</span> — <span className="text-laba-accent">3:00 AM</span>
               </div>
-              
+              <a
                 href="https://wa.me/966582266333"
                 target="_blank"
                 rel="noopener noreferrer"

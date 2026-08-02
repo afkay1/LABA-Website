@@ -9,7 +9,7 @@ export const IMAGES = {
 
 export const MENU_IMAGES = {
   coffee:
-    "/images/coffee-latte.jpg",
+    "./images/coffee-latte.jpg",
   sliders:
     "https://images.unsplash.com/photo-1678110707493-8d05425137ac?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
   desserts:

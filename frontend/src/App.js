@@ -89,7 +89,29 @@ function App() {
           <div className="section-divider" />
           <Contact />
         </main>
-        <Footer lenis={lenis} />
+        {/* Full width Google Maps strip */}
+<div className="relative w-full" style={{ height: "350px" }}>
+  <iframe
+    title="LÀ·BA Location"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.674320037221!2d46.67529931499965!3d24.687144984134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890a6e8ce5%3A0x6a6b7e6e7e6e7e6e!2sPrince%20Abdulaziz%20St%2C%20As%20Sulimaniyah%2C%20Riyadh!5e0!3m2!1sen!2ssa!4v1234567890"
+    width="100%"
+    height="350"
+    style={{ border: 0, display: "block", filter: "invert(90%) hue-rotate(180deg)", opacity: 0.85 }}
+    allowFullScreen=""
+    loading="lazy"
+    referrerPolicy="no-referrer-when-downgrade"
+  />
+  {/* Overlay label */}
+  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+    <div className="bg-laba-secondary/80 backdrop-blur-sm border border-laba-accent/30 px-6 py-4 text-center">
+      <div className="font-display text-xl text-white mb-1">LÀ·BA — Art of Dining</div>
+      <div className="font-body text-xs text-laba-accent tracking-widest uppercase">
+        Prince Abdulaziz St, As Sulimaniyah, Riyadh
+      </div>
+    </div>
+  </div>
+</div>
+<Footer lenis={lenis} />
         <WhatsAppButton />
       </div>
     </LanguageProvider>

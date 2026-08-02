@@ -389,7 +389,7 @@ export default function Contact() {
                   rel="noopener noreferrer"
                   data-testid="confirm-whatsapp"
                   className="laba-hoverable rounded-full bg-[#25D366] py-3.5 font-body text-xs uppercase tracking-[0.25em] text-white transition-transform hover:scale-[1.02]"
-                <a
+                
                   >
                   {t(T.contact.confirmWhatsapp)}
                 </a>

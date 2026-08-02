@@ -141,7 +141,7 @@ export default function Contact() {
                   </div>
                 );
                 return it.href ? (
-                  
+                  <a
                     key={i}
                     href={it.href}
                     target="_blank"

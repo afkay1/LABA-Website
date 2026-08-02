@@ -181,21 +181,6 @@ export default function Contact() {
               </a>
             </div>
 
-            {/* Google Maps Embed */}
-            <div className="mt-10 overflow-hidden border border-laba-accent/25 rounded-sm">
-              <iframe
-                title="LA.BA Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.5!2d46.6753!3d24.6877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03b5b5b5b5b5%3A0x1234567890abcdef!2sLA.BA%20Restaurant!5e0!3m2!1sen!2ssa!4v1234567890"
-                width="100%"
-                height="220"
-                style={{ border: 0, display: "block", filter: "invert(90%) hue-rotate(180deg)" }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
-          </div>
-
           {/* Form */}
           <motion.form
             onSubmit={onSubmit}

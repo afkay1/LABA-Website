@@ -404,8 +404,8 @@ export default function Contact() {
           </motion.div>
         )}
       </AnimatePresence>
-      </div>
-      </div>
+        <div>
+        </div>
     </section>
   );
 }

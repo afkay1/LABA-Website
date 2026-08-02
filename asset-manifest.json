@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/LABA-Website/static/css/main.1d07ad51.css",
+    "main.js": "/LABA-Website/static/js/main.d52af0bf.js",
+    "index.html": "/LABA-Website/index.html",
+    "main.1d07ad51.css.map": "/LABA-Website/static/css/main.1d07ad51.css.map",
+    "main.d52af0bf.js.map": "/LABA-Website/static/js/main.d52af0bf.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1d07ad51.css",
+    "static/js/main.d52af0bf.js"
+  ]
+}

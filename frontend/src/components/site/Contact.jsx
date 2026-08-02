@@ -139,7 +139,7 @@ export default function Contact() {
               >
                 <Instagram size={15} /> {CONTACT.instagramHandle}
               </a>
-              
+              <a
                 href={CONTACT.maps}
                 target="_blank"
                 rel="noopener noreferrer"

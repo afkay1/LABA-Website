@@ -179,6 +179,26 @@ export const MENU = [
       { en: "Classic French Croque Monsieur", ar: "كروك مسيو الفرنسي الكلاسيكي", price: 57 },
     ],
   },
+  {
+    key: "shisha",
+    canvas: "restaurant",
+    name: { en: "Shisha", ar: "شيشة" },
+    title: { en: "The Lounge Experience", ar: "تجربة الصالة" },
+    desc: {
+      en: "Premium shisha flavors to complement your evening — crafted for those who appreciate the finer things.",
+      ar: "نكهات شيشة فاخرة لتكمل أمسيتك — مُعدّة لمن يقدّر الأشياء الراقية.",
+    },
+    items: [
+      { en: "Double Apple Deluxe", ar: "تفاح مزدوج ديلوكس", price: 110 },
+      { en: "Lemon Mint Deluxe", ar: "ليمون نعناع ديلوكس", price: 110 },
+      { en: "Double Apple Mix", ar: "تفاح مزدوج مكس", price: 110 },
+      { en: "Grape Mint Deluxe", ar: "عنب نعناع ديلوكس", price: 110 },
+      { en: "Watermelon Deluxe", ar: "بطيخ ديلوكس", price: 110 },
+      { en: "Blueberry Deluxe", ar: "توت أزرق ديلوكس", price: 110 },
+      { en: "Strawberry Mazaya", ar: "فراولة مازايا", price: 110 },
+      { en: "Mango Mazaya", ar: "مانجو مازايا", price: 110 },
+    ],
+  },
 ];
 
 export const EXPERIENCES = [

@@ -161,7 +161,7 @@ export default function Contact() {
 
             {/* Socials */}
             <div className="mt-10 flex items-center gap-4">
-              
+              <a
                 href={CONTACT.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -170,7 +170,7 @@ export default function Contact() {
               >
                 <Instagram size={15} /> {CONTACT.instagramHandle}
               </a>
-              
+              <a
                 href={CONTACT.maps}
                 target="_blank"
                 rel="noopener noreferrer"

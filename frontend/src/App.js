@@ -11,6 +11,7 @@ import MarqueeStrip from "@/components/site/MarqueeStrip";
 import Story from "@/components/site/Story";
 import Menu from "@/components/site/Menu";
 import Experience from "@/components/site/Experience";
+import Reviews from "@/components/site/Reviews";
 import About from "@/components/site/About";
 import Gallery from "@/components/site/Gallery";
 import Contact from "@/components/site/Contact";
@@ -79,6 +80,7 @@ function App() {
           <Menu />
           <div className="section-divider" />
           <Experience />
+          <Reviews />
           <About />
           <div className="section-divider" />
           <Gallery />

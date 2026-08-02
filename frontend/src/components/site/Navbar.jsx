@@ -51,7 +51,7 @@ export default function Navbar({ lenis }) {
               key={l.id}
               onClick={() => goTo(l.id)}
               data-testid={`nav-${l.id}`}
-              className="font-body text-xs uppercase tracking-[0.25em] text-white/80 hover:text-laba-accent transition-colors"
+              className="font-body text-xs font-semibold uppercase tracking-[0.25em] text-white/80 hover:text-laba-accent transition-colors"
             >
               {t(l.label)}
             </button>
@@ -75,7 +75,7 @@ export default function Navbar({ lenis }) {
               key={l.id}
               onClick={() => goTo(l.id)}
               data-testid={`nav-${l.id}`}
-              className="font-body text-xs uppercase tracking-[0.25em] text-white/80 hover:text-laba-accent transition-colors"
+              className="font-body text-xs font-semibold uppercase tracking-[0.25em] text-white/80 hover:text-laba-accent transition-colors"
             >
               {t(l.label)}
             </button>
@@ -128,7 +128,7 @@ export default function Navbar({ lenis }) {
                   key={l.id}
                   onClick={() => goTo(l.id)}
                   data-testid={`mobile-nav-${l.id}`}
-                  className="text-start font-display text-2xl text-white/90 hover:text-laba-accent transition-colors"
+                  className="text-start font-display text-2xl font-semibold text-white/90 hover:text-laba-accent transition-colors"
                 >
                   {t(l.label)}
                 </button>

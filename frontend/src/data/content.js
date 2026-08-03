@@ -1,27 +1,23 @@
 // LÀ·BA — bilingual content & menu data
 export const IMAGES = {
-  hero: "/images/hero-dining.jpg",
-  exterior: "/images/exterior-night.jpg",
-  interior: "/images/interior-main.jpg",
-  stage: "/images/stage.jpg",
-  arch: "/images/arch-neon.jpg",
+  hero: "./images/hero-dining.jpg",
+  exterior: "./images/exterior-night.jpg",
+  interior: "./images/interior-main.jpg",
+  stage: "./images/stage.jpg",
+  arch: "./images/arch-neon.jpg",
 };
 
 export const MENU_IMAGES = {
-  coffee:
-    "./images/coffee-latte.jpg",
-  sliders:
-    "https://images.unsplash.com/photo-1678110707493-8d05425137ac?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-  desserts:
-    "https://images.unsplash.com/photo-1637944220604-c5f28faac604?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-  drinks:
-    "https://images.unsplash.com/photo-1656423371679-297f0d3ef4ee?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-  seafood:
-    "./images/seafood-paella.jpg",
-  pizza:
-    "https://images.unsplash.com/photo-1579751626657-72bc17010498?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-  restaurant: "/images/interior-main.jpg",
-  breakfast: "/images/hero-dining.jpg",
+  coffee: "./images/coffee-latte.jpg",
+  sliders: "https://images.unsplash.com/photo-1678110707493-8d05425137ac?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+  desserts: "https://images.unsplash.com/photo-1637944220604-c5f28faac604?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+  drinks: "https://images.unsplash.com/photo-1656423371679-297f0d3ef4ee?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+  seafood: "./images/seafood-paella.jpg",
+  pizza: "https://images.unsplash.com/photo-1579751626657-72bc17010498?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+  restaurant: "./images/interior-main.jpg",
+  breakfast: "./images/hero-dining.jpg",
+  shisha: "./images/interior2.jpg",
+  bakery: "./images/coffee-latte.jpg",
 };
 
 export const CONTACT = {

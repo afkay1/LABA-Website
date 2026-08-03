@@ -170,7 +170,7 @@ export default function Reviews() {
 
           {/* Google link */}
           <div className="text-center mt-8">
-            
+            <a
               href="https://maps.google.com/?q=LA.BA+Restaurant+Riyadh"
               target="_blank"
               rel="noopener noreferrer"

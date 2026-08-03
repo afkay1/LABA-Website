@@ -97,7 +97,7 @@ export default function GroupDining() {
 
         {/* CTA */}
         <div className="text-center">
-          
+          <a
             href={`https://wa.me/${CONTACT.whatsapp}?text=${waMessage}`}
             target="_blank"
             rel="noopener noreferrer"

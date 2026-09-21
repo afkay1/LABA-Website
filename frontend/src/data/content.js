@@ -26,7 +26,7 @@ export const CONTACT = {
   whatsapp: "966582266333",
   instagram: "https://instagram.com/la.ba.ksa",
   instagramHandle: "@la.ba.ksa",
-  maps: "https://maps.google.com/?q=LA.BA+Restaurant+Riyadh",
+  maps: "https://www.google.com/maps/place/LA.BA/@24.7065071,46.7040408,17z/data=!3m1!4b1!4m6!3m5!1s0x3e2f03003af97efd:0x20f08ffded91477!8m2!3d24.7065071!4d46.7066157!16s%2Fg%2F11lnlf8xjs",
   menuLink: "https://laba.yallaqrcodes.com/branch/1/",
 };
 

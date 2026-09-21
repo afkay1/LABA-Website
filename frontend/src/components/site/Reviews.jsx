@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLang } from "../../context/LanguageContext";
+import { CONTACT } from "../../data/content";
 
 const REVIEWS = [
   {
@@ -171,7 +172,7 @@ export default function Reviews() {
           {/* Google link */}
           <div className="text-center mt-8">
             <a
-              href="https://maps.google.com/?q=LA.BA+Restaurant+Riyadh"
+              href={CONTACT.maps}
               target="_blank"
               rel="noopener noreferrer"
               className="font-body text-xs uppercase tracking-[0.25em] text-white/40 hover:text-laba-accent transition-colors"
